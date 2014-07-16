@@ -56,6 +56,7 @@ miPcb2.setPid(3)
 miPcb2.setEstado("ready")
 miPcb2.setPrioridad(3)
 
+
 # Creamos un scheduler
 miScheduler = scheduler.Scheduler()
 # Cargamos al scheduler el pcb
@@ -65,3 +66,5 @@ miScheduler.agregar(miPcb1)
 miScheduler.agregar(miPcb2)
 
 miScheduler.colaReady.imprimirCola()
+
+#Linea de prueva
