@@ -31,12 +31,12 @@ class AsignacionContinua:
             if(self.hayBloqueDisponible(memoria, longitud)):
                 nuevoBloqueUsado = self.elegirBloque(memoria, longitud, pcb)
                 nuevoBloqueUsado.cargarInstrucciones(instrucciones)
-                memoria.bloquesUsados.agregarBloque(nuevoBloqueUsado)
+                memoria.bloques.agregarBloque(nuevoBloqueUsado)
             else:
                 self.compactar(memoria)
                 nuevoBloqueUsado = self.elegirBloque(memoria, longitud, pcb)
                 nuevoBloqueUsado.cargarInstrucciones(instrucciones)
-                memoria.bloquesUsados.agregarBloque(nuevoBloqueUsado)
+                memoria.bloques.agregarBloque(nuevoBloqueUsado)
         else:
             ''' swapping '''
 
@@ -78,9 +78,9 @@ class AsignacionContinua:
         dirInicioNueva= bloqueLibre.inicio + espacioAOcupar
         dirFinalNueva=  bloqueLibre.fin
         ''' saco el bloqueLibre de la lista de bloues libres para despues de partirlo agregar la parte que me queda libre '''
-        memoria.bloquesLibres.sacarBloque(bloqueLibre)
+        #memoria.bloquesLibres.sacarBloque(bloqueLibre)
         ''' saco el bloqueLibre de la lista de todos los bloues para despues de partirlo agregar cada bloque resultante'''
-        memoria.bloques.sacarBloque(bloqueLibre)
+        #memoria.bloques.sacarBloque(bloqueLibre)
         '''creo un bloque libre con la diferencia y lo pongo en la lista de libres'''
         bloqueLibreNuevo = BloqueDeMemoria( dirInicioNueva, dirFinalNueva)
         bloqueLibreNuevo.cargarAnterior(anterior)

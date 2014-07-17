@@ -11,6 +11,7 @@ class ManejadorDeDispositivos:
         prog = self.discoRigido.buscar(nombreProg)
         # Creo el PCB del programa
         PCB = pcb.Pcb()
+        PCB.setPrioridad(1)
         # Lo cargo en Memoria
         self.memoria.cargarPrograma(prog, PCB)
         self.scheduler.agregar(PCB)

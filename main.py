@@ -24,28 +24,28 @@ miMemoria.cargarEstrategia(miEstrategia)
 # Ejecutamos el programa, esto hace que se busque en disco y se cargue a la memoria
 miPcb = miManejador.ejecutarPrograma("prueba")
 
-miPcb.setPid(1)
-miPcb.setEstado("ready")
-miPcb.setPrioridad(2)
+
+#miPcb.setPid(1)
+#miPcb.setEstado("ready")
+#miPcb.setPrioridad(2)
 ######################################################
-# Creamos un CPU
-miCpu = cpu.CPU(miMemoria)
 # Creamos un scheduler
 miScheduler = scheduler.Scheduler()
+# Creamos un CPU
+miCpu = cpu.CPU(miMemoria, miScheduler)
+
 # Un handler que maneja mis interrupciones y se lo cargamos tambien a la CPU, los dos se conocen
 miHandler = handler.Handler(miCpu, miScheduler)
 miHandler.cargarLasInterrupcionesDelSistema()
 # Cargamos al scheduler el pcb
-miScheduler.agregar(miPcb)
+#miScheduler.agregar(miPcb)
 
 # Hacemos el el scheduler nos de un elemento y se lo cargamos al CPU
-miCpu.cargar(miScheduler.run())
+#miCpu.cargar(miScheduler.run())
 
-miCpu.cargarHandler(miHandler)
-
+#miCpu.cargarHandler(miHandler)
 
 # Creamos un clock, al cual le cargamos nuestra CPU y lo hacemos correr
 c = clock.Clock()
 c.cargarObserver(miCpu)
 c.run()
-

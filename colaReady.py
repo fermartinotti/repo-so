@@ -55,7 +55,7 @@ class ColaReady:
         self.prioridades[3]= CeldaEnvejecimiento()
 
     def agregarPcb(self, pcb):
-        agregarA = pcb.prioridad
+        agregarA = pcb.getPrioridad()
         self.prioridades[agregarA].agregarPcb(pcb)
 
     def envejecer(self):
@@ -76,22 +76,5 @@ class ColaReady:
             if (encontro == False):
                 ''' exception '''
 
-    def imprimirCola(self):
-        print ('Cola de ready' + '\n')
-        prio = 1
-        while (prio<4):
-            print 'Prioridad' + '\n'
-            print prio
-            nivel1 = self.prioridades[prio].devolverNivel(1)
-            print 'nivel 1:'
-            print(nivel1)
-            nivel2 = self.prioridades[prio].devolverNivel(2)
-            print 'nivel 2:'
-            print(nivel2)
-            nivel3 = self.prioridades[prio].devolverNivel(3)
-            print'nivel 3:'
-            print(nivel3)
-            prio = prio+1
-
-#cola = ColaReady()
-#cola.imprimirCola()
+    def hayPcb(self):
+        return (self.prioridades[3].hayElemento() or self.prioridades[2].hayElemento() or self.prioridades[1].hayElemento())

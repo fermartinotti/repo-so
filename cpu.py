@@ -1,7 +1,7 @@
 import interrupcion
 
 class CPU:
-    def __init__ (self, memoria):
+    def __init__ (self, memoria,scheduler):
         self.enCpu = None
         self.pc = None
         self.pcFin = None
@@ -12,6 +12,7 @@ class CPU:
         self.modoKernel = False
         self.contador = 0
         self.cantDeTicks = 2
+        self.scheduler = scheduler
         
     def cargarHandler(self, handler):
         self.handler = handler
@@ -51,16 +52,23 @@ class CPU:
         if(self.esModoUsuario()):
             if ((self.enCpu != None) and (self.cantDeTicks != self.contador)): 
                 self.ejecutarInstruccionEnDirMemoria(self.pc)
+                self.aumenterPcYContador
             else:
                 if(self.cantDeTicks == self.contador):
                     self.enCpu.setPc(self.pc)
-                    #print("Hay una interrupcion de TimeOut")
                     self.handler.agarrarInterrupcion(interrupcion.IRQ(self.enCpu, interrupcion.IRQTipo.TIMEOUT))
 
-            if((self.pcFin == self.pc) and self.estaModoUsuario() and (self.enCpu != None)):
-                #print ("Hay una interrupcion de Kill")
+            if((self.pcFin == self.pc) and self.esModoUsuario() and (self.enCpu != None)):
                 self.handler.agarrarInterrupcion(interrupcion.IRQ(self.enCpu, interrupcion.IRQTipo.KILL))
+            else:
+                self.cargarcpu()
 
-            self.pc = self.pc +1
-            self.contador = self.contador +1
+    def cargarcpu(self):
+        if(self.scheduler.hayElementos()):
+            pcb = self.scheduler.run()
+            self.cargar(pcb)
+
+    def aumenterPcYContador(self):
+        self.pc = self.pc +1
+        self.contador = self.contador +1
             
