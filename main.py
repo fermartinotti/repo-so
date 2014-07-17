@@ -1,10 +1,10 @@
-import instruccion, memoria, programa, cpu, disco, manejadorDeDispositivos, manejadorDeMemoria, handler, scheduler, clock
+import instruccion, memoria, programa, cpu, disco, manejadorDeDispositivos, handler, scheduler, clock
 
 # Creamos instrucciones
-i1= instruccion.Instruccion("primera")
-i2= instruccion.Instruccion("segunda")
-i3= instruccion.Instruccion("tercera")
-i4= instruccion.Instruccion("cuarta")
+i1= instruccion.CPUInstruccion("primera")
+i2= instruccion.CPUInstruccion("segunda")
+i3= instruccion.CPUInstruccion("tercera")
+i4= instruccion.IOInstruccion("cuarta")
 # Creamos un programa y le agregamos nuestras instrucciones
 miPrograma = programa.Programa("prueba")
 miPrograma.agregarInstruccion(i1)
@@ -18,11 +18,9 @@ miDisco.almacenar(miPrograma)
 miMemoria = memoria.Memoria()
 # Creamos un manejador de dispositivos con nuestra memoria y disco duro
 miManejador = manejadorDeDispositivos.ManejadorDeDispositivos(miMemoria, miDisco)
-longMemoria = miMemoria.longuitud
-
 # Cargamos la estrategia de Asignacion continua Primer ajuste
-miEstrategia = manejadorDeMemoria.PrimerAjuste(longMemoria)
-miManejador.cargarEstrategiaDeMemoria(miEstrategia)
+miEstrategia = memoria.PrimerAjuste()
+miMemoria.cargarEstrategia(miEstrategia)
 # Ejecutamos el programa, esto hace que se busque en disco y se cargue a la memoria
 miPcb = miManejador.ejecutarPrograma("prueba")
 

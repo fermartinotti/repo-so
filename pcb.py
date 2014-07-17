@@ -1,13 +1,13 @@
+import memoria
 '''
 Created on 11/07/2014
 
 @author: Equipo
 '''
 class Pcb:
-    def __init__(self, pc, pcFin):
+    def __init__(self):
         self.pid = None
-        self.pc = pc
-        self.pcFin = pcFin
+        self.bloque = None
         self.estado = None
         self.prioridad = None
         self.bloqueDeMemoria = None
@@ -20,16 +20,10 @@ class Pcb:
         self.pid = pid
 
     def getPc(self):
-        return self.pc
-
-    def setPc(self, pcNuevo):
-        self.pc = pcNuevo
+        return self.bloque.inicio()
 
     def getPcFin(self):
-        return self.pcFin
-
-    def setPcFin(self, pcFin):
-        self.pcFin = pcFin
+        return self.bloque.fin()
 
     def setEstado(self, estado):
         self.estado = estado

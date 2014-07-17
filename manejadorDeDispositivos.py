@@ -1,22 +1,17 @@
-import manejadorDeMemoria, pcb
+import pcb, scheduler
 
 class ManejadorDeDispositivos:
     def __init__(self, memoria, disco):
-        self.manejadorDeMemoria = manejadorDeMemoria.ManejadorDeMemoria(memoria)
+        self.memoria= memoria
         self.discoRigido = disco
-        
-    def cargarEstrategiaDeMemoria(self, estrategia):
-        self.manejadorDeMemoria.cargarEstrategia(estrategia)
+        self.scheduler = scheduler.Scheduler()
         
     def ejecutarPrograma(self, nombreProg):
         # Obtengo el programa del disco
         prog = self.discoRigido.buscar(nombreProg)
         # Creo el PCB del programa
-        pc = self.manejadorDeMemoria.ultimaDir()
-        pcFin = pc + (prog.cantidadDeInstrucciones() -1)
-        PCB = pcb.Pcb(pc, pcFin)
+        PCB = pcb.Pcb()
         # Lo cargo en Memoria
-        self.manejadorDeMemoria.cargarPrograma(prog, PCB)
-        
-        return PCB
+        self.memoria.cargarPrograma(prog, PCB)
+        self.scheduler.agregar(PCB)
         
